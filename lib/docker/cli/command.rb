@@ -3,6 +3,8 @@ require 'tty/command'
 require 'tty/prompt'
 require 'ptools'
 
+require_relative 'command_result'
+
 module Docker
   module Cli
     class Command
@@ -45,19 +47,20 @@ module Docker
           end
 
         else
-          outStream = []
-          errStream = []
-          res = @runner.run(@command_buffer.join(" "))  do |out, err|
+          @outStream = []
+          @errStream = []
+          @result = @runner.run!(@command_buffer.join(" "))  do |out, err|
             if block
               block.call(:outstream, out)
               block.call(:errstream, err)
             else
-              outStream << out
-              errStream << err
+              @outStream << out
+              @errStream << err
             end
           end
 
-          { outStream: outStream, errStream: errStream, result: res }
+          CommandResult.new(@result, @outStream, @errStream)
+          #{ outStream: @outStream, errStream: @errStream, result: @result }
         end
       end
 

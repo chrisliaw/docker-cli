@@ -140,6 +140,23 @@ module Docker
         logger.debug "Start Container : #{cmd.join(" ")}"
         Command.new(cmd)
       end
+
+      def attach_container(container, opts = { })
+
+        opts = {} if opts.nil?
+        cmd = []
+        cmd << Cli.docker_exe
+        cmd << "container"
+        cmd << "attach"
+        cmd << container
+
+        logger.debug "Attach Container : #{cmd.join(" ")}"
+        # this is a bit difficult to juggle 
+        # it depending on the previous docker configuration
+        # but to be save, just open up a new terminal
+        Command.new(cmd, true)
+      end
+      
       
       def stop_container(container, opts = { })
 
@@ -202,12 +219,13 @@ module Docker
       private
       # expecting :mounts => [{ "/dir/local" => "/dir/inside/docker" }]
       def process_mount(opts)
-        if not (opts[:mounts].nil? or opts[:mounts].empty?)
-          m = opts[:mounts]
+        if not (opts[:mount].nil? or opts[:mount].empty?)
+          m = opts[:mount]
           m = [m] if not m.is_a?(Array)
           res = []
-          m.each do |host,docker|
-            res << "-v #{host}:#{docker}"
+          m.each do |mm|
+            host = mm.keys.first
+            res << "-v #{host}:#{mm[host]}"
           end
           res.join(" ")
         else

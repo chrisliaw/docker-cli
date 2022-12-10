@@ -54,8 +54,8 @@ module Docker
               block.call(:outstream, out)
               block.call(:errstream, err)
             else
-              @outStream << out
-              @errStream << err
+              @outStream << out if not_empty?(out)
+              @errStream << err if not_empty?(err)
             end
           end
 

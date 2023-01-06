@@ -192,15 +192,13 @@ module Docker
 
         isTty = false
         isInteractive = false
-        if is_empty?(opts[:command])
-          if not_empty?(opts[:tty]) and opts[:tty] == true
-            cmd << "-t" 
-            isTty = true
-          end
-          if not_empty?(opts[:interactive]) and opts[:interactive] == true
-            cmd << "-i" 
-            isInteractive = true
-          end
+        if not_empty?(opts[:tty]) and opts[:tty] == true
+          cmd << "-t" 
+          isTty = true
+        end
+        if not_empty?(opts[:interactive]) and opts[:interactive] == true
+          cmd << "-i" 
+          isInteractive = true
         end
 
         cmd << container

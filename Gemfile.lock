@@ -1,8 +1,17 @@
-GIT
-  remote: devops_assist
-  revision: 7d0ed10bc1964532be810c347447ec9ee4a61fca
-  branch: master
+PATH
+  remote: .
   specs:
+    docker-cli (0.2.0)
+      ptools (~> 1.4.3)
+      teLogger (~> 0.2.2)
+      toolrack (~> 0.20.1)
+      tty-command (~> 0.10.1)
+      tty-prompt (~> 0.23.1)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    base58 (0.2.3)
     devops_assist (0.3.3)
       git_cli
       git_cli_prompt
@@ -10,50 +19,16 @@ GIT
       teLogger
       toolrack
       tty-prompt
-
-GIT
-  remote: git_cli
-  revision: 05d83d28f37f4023920b6bf91d975b818d0f13fe
-  branch: master
-  specs:
+    diff-lcs (1.5.0)
     git_cli (0.11.2)
       gvcs
       ptools (~> 1.4.0)
       teLogger
       toolrack
-
-GIT
-  remote: git_cli_prompt
-  revision: b9734eab851922936515f717093b1e2429a24d8a
-  branch: master
-  specs:
     git_cli_prompt (0.3.1)
       teLogger
       toolrack
       tty-prompt
-
-PATH
-  remote: .
-  specs:
-    docker-cli (0.2.0)
-      ptools
-      teLogger
-      tty-command
-      tty-prompt
-
-GIT
-  remote: toolrack
-  revision: be0bda340f7f6047e5ceace77b5d0a928bbcdecf
-  branch: master
-  specs:
-    toolrack (0.20.1)
-      base58
-
-GEM
-  remote: https://rubygems.org/
-  specs:
-    base58 (0.2.3)
-    diff-lcs (1.5.0)
     gvcs (0.1.1)
     pastel (0.8.0)
       tty-color (~> 0.5)
@@ -73,6 +48,8 @@ GEM
       rspec-support (~> 3.12.0)
     rspec-support (3.12.0)
     teLogger (0.2.2)
+    toolrack (0.20.1)
+      base58
     tty-color (0.6.0)
     tty-command (0.10.1)
       pastel (~> 0.8)
@@ -91,13 +68,10 @@ PLATFORMS
   x86_64-darwin-21
 
 DEPENDENCIES
-  devops_assist!
+  devops_assist (~> 0.3.3)
   docker-cli!
-  git_cli!
-  git_cli_prompt!
   rake (~> 13.0)
   rspec (~> 3.0)
-  toolrack!
 
 BUNDLED WITH
    2.4.6

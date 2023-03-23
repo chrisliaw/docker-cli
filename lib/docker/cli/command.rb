@@ -44,8 +44,8 @@ module Docker
             when "gnome-terminal"
               `#{terminal} -- bash -c "#{@command_buffer.join(" ")}; exec bash"`
             when "iTerm2"
-              `osascript <<EOL
-               tell application "iTerm"
+              `osascript -e \
+               'tell application "iTerm"
                activate
 
                create window with default profile
@@ -57,8 +57,7 @@ module Docker
                write text "#{@command_buffer.join(" ")}"
                end tell
 
-               end tell
-               EOL
+               end tell'
               `
             when "Terminal" 
               `osascript -e \
@@ -70,12 +69,14 @@ module Docker
             else
               raise Error, "Unfinished supporting terminal : #{terminal}"
             end
+
+            pmt.puts "\n Prompt running inside the Docker shall be opened in a new window\n\n"
           end
 
         else
           @outStream = []
           @errStream = []
-          @result = @runner.run!(@command_buffer.join(" "))  do |out, err|
+          result = @runner.run!(@command_buffer.join(" "))  do |out, err|
             if block
               block.call(:outstream, out)
               block.call(:errstream, err)
@@ -85,7 +86,7 @@ module Docker
             end
           end
 
-          CommandResult.new(@result, @outStream, @errStream)
+          CommandResult.new(result, @outStream, @errStream)
           #{ outStream: @outStream, errStream: @errStream, result: @result }
         end
       end
@@ -98,7 +99,7 @@ module Docker
       def detect_terminal
         avail = []
         if TR::RTUtils.on_linux?
-          possible = [ "gnome-terminal","konsole","cmd.exe", "tilix", "terminator" ]
+          possible = [ "gnome-terminal","konsole","tilix", "terminator" ]
           possible.each do |app|
             avail << app if not File.which(app).nil?
           end

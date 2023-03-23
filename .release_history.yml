@@ -4,3 +4,5 @@ docker-cli:
   :timestamp: 1670315972.6015687
 - :version: 0.1.1
   :timestamp: 1670648500.3751137
+- :version: 0.2.0
+  :timestamp: 1679547303.774784

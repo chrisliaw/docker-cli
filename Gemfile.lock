@@ -35,7 +35,7 @@ GIT
 PATH
   remote: .
   specs:
-    docker-cli (0.1.1)
+    docker-cli (0.2.0)
       ptools
       teLogger
       tty-command

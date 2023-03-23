@@ -3,6 +3,8 @@ require 'tty/command'
 require 'tty/prompt'
 require 'ptools'
 
+require 'toolrack'
+
 require_relative 'command_result'
 
 module Docker
@@ -41,6 +43,30 @@ module Docker
               `#{terminal} -x "#{@command_buffer.join(" ")}"`
             when "gnome-terminal"
               `#{terminal} -- bash -c "#{@command_buffer.join(" ")}; exec bash"`
+            when "iTerm2"
+              `osascript <<EOL
+               tell application "iTerm"
+               activate
+
+               create window with default profile
+               delay 0.5
+
+               set currentWindow to current window
+
+               tell current session of currentWindow
+               write text "#{@command_buffer.join(" ")}"
+               end tell
+
+               end tell
+               EOL
+              `
+            when "Terminal" 
+              `osascript -e \
+               'tell application "Terminal"
+               activate
+               do script "#{@command_buffer.join(" ")}"
+               end tell'
+              `
             else
               raise Error, "Unfinished supporting terminal : #{terminal}"
             end
@@ -70,10 +96,17 @@ module Docker
 
       private
       def detect_terminal
-        possible = [ "gnome-terminal","konsole","cmd.exe", "tilix", "terminator" ]
         avail = []
-        possible.each do |app|
-          avail << app if not File.which(app).nil?
+        if TR::RTUtils.on_linux?
+          possible = [ "gnome-terminal","konsole","cmd.exe", "tilix", "terminator" ]
+          possible.each do |app|
+            avail << app if not File.which(app).nil?
+          end
+        elsif TR::RTUtils.on_windows?
+          avail << "cmd.exe"
+        elsif TR::RTUtils.on_mac?
+          avail << "Terminal"
+          avail << "iTerm2"
         end
         avail
       end

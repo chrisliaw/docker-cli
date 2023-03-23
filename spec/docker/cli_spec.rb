@@ -12,23 +12,23 @@ RSpec.describe Docker::Cli do
     begin
       
       res = cmd.run 
-      expect(res[:result].failed?).to be false
+      expect(res.result.failed?).to be false
      
       res = cf.find_image("cli-test").run
-      expect(res[:result].failed?).to be false
-      expect(res[:outStream].empty?).to be false
-      puts res[:outStream]
+      expect(res.result.failed?).to be false
+      expect(res.out_stream.empty?).to be false
+      puts res.out_stream
 
       res = cf.find_from_all_container("cli-test-container").run
-      expect(res[:result].failed?).to be false
+      expect(res.result.failed?).to be false
 
-      if not res[:outStream].empty?
+      if not res.out_stream.empty?
         # container already created
         res = cf.find_running_container("cli-test-container").run
-        if res[:outStream].empty?
+        if res.out_stream.empty?
           # not running
           res = cf.start_container("cli-test-container").run
-          expect(res[:result].failed?).to be false
+          expect(res.result.failed?).to be false
         end
 
         cf.run_command_in_running_container("cli-test-container", "/bin/bash", tty: true, interactive: true ).run

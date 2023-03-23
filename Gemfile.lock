@@ -1,35 +1,60 @@
-PATH
-  remote: .
+GIT
+  remote: devops_assist
+  revision: 7d0ed10bc1964532be810c347447ec9ee4a61fca
+  branch: master
   specs:
-    docker-cli (0.1.0)
-      ptools
-      teLogger
-      toolrack
-      tty-command
-      tty-prompt
-
-GEM
-  remote: https://rubygems.org/
-  specs:
-    base58 (0.2.3)
-    devops_assist (0.3.1)
+    devops_assist (0.3.3)
       git_cli
       git_cli_prompt
       gvcs
       teLogger
       toolrack
       tty-prompt
-    diff-lcs (1.5.0)
-    git_cli (0.10.0)
+
+GIT
+  remote: git_cli
+  revision: 05d83d28f37f4023920b6bf91d975b818d0f13fe
+  branch: master
+  specs:
+    git_cli (0.11.2)
       gvcs
       ptools (~> 1.4.0)
       teLogger
       toolrack
+
+GIT
+  remote: git_cli_prompt
+  revision: b9734eab851922936515f717093b1e2429a24d8a
+  branch: master
+  specs:
     git_cli_prompt (0.3.1)
       teLogger
       toolrack
       tty-prompt
-    gvcs (0.1.0)
+
+PATH
+  remote: .
+  specs:
+    docker-cli (0.1.1)
+      ptools
+      teLogger
+      tty-command
+      tty-prompt
+
+GIT
+  remote: toolrack
+  revision: be0bda340f7f6047e5ceace77b5d0a928bbcdecf
+  branch: master
+  specs:
+    toolrack (0.20.1)
+      base58
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    base58 (0.2.3)
+    diff-lcs (1.5.0)
+    gvcs (0.1.1)
     pastel (0.8.0)
       tty-color (~> 0.5)
     ptools (1.4.3)
@@ -38,18 +63,16 @@ GEM
       rspec-core (~> 3.12.0)
       rspec-expectations (~> 3.12.0)
       rspec-mocks (~> 3.12.0)
-    rspec-core (3.12.0)
+    rspec-core (3.12.1)
       rspec-support (~> 3.12.0)
-    rspec-expectations (3.12.0)
+    rspec-expectations (3.12.2)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.12.0)
-    rspec-mocks (3.12.0)
+    rspec-mocks (3.12.4)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.12.0)
     rspec-support (3.12.0)
-    teLogger (0.2.0)
-    toolrack (0.19.1)
-      base58
+    teLogger (0.2.2)
     tty-color (0.6.0)
     tty-command (0.10.1)
       pastel (~> 0.8)
@@ -65,13 +88,16 @@ GEM
     wisper (2.0.1)
 
 PLATFORMS
-  x86_64-linux
+  x86_64-darwin-21
 
 DEPENDENCIES
-  devops_assist
+  devops_assist!
   docker-cli!
+  git_cli!
+  git_cli_prompt!
   rake (~> 13.0)
   rspec (~> 3.0)
+  toolrack!
 
 BUNDLED WITH
-   2.2.28
+   2.4.6

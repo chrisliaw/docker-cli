@@ -1,4 +1,5 @@
 
+require 'toolrack'
 
 module Docker
 

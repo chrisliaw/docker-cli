@@ -79,7 +79,7 @@ module Docker
         cmd << "ps"
         cmd << "-q"
         cmd << "-f"
-        cmd << "name=#{name}"
+        cmd << "name=\"#{name}\""
 
         logger.debug "Find container: #{cmd.join(" ")}"
 

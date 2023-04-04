@@ -93,9 +93,14 @@ module Docker
         cmd = []
         cmd << Cli.docker_exe
         cmd << "ps"
+        # return all info instead of only the container ID
+        #cmd << "-a"
         cmd << "-aq"
         cmd << "-f"
-        cmd << "name=#{name}"
+        # From little testing seems the command by default already support regex formatting
+        # So can use the regex marker to get exact match
+        # e.g. if want exact match, pass in ^#{name}\z
+        cmd << "name=\"#{name}\""
 
         logger.debug "Find from all container: #{cmd.join(" ")}"
         Command.new(cmd)
@@ -253,6 +258,10 @@ module Docker
           @logger.tag = :docker_cmd
         end
         @logger
+      end
+
+      def parse_container_list(out, &block)
+         
       end
 
     end

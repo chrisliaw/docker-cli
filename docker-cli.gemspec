@@ -30,15 +30,15 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency 'toolrack', "~> 0.20.1"
-  spec.add_dependency 'teLogger', "~> 0.2.2"
+  spec.add_dependency 'toolrack'
+  spec.add_dependency 'teLogger'
 
-  spec.add_dependency 'ptools', "~> 1.4.3"
+  spec.add_dependency 'ptools'
 
-  spec.add_dependency 'tty-command', "~> 0.10.1"
-  spec.add_dependency 'tty-prompt', "~> 0.23.1"
+  spec.add_dependency 'tty-command'
+  spec.add_dependency 'tty-prompt'
 
-  spec.add_development_dependency 'devops_assist', "~> 0.3.3"
+  spec.add_development_dependency 'devops_assist'
 
   # Uncomment to register a new dependency of your gem
   # spec.add_dependency "example-gem", "~> 1.0"

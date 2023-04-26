@@ -242,8 +242,8 @@ module Docker
           po = opts[:ports]
           po = [po] if not po.is_a?(Array)
           res = []
-          po.each do |host,docker|
-            res << "-p #{host}:#{docker}"
+          po.each do |docker,host|
+            res << "-p #{docker}:#{host}"
           end
           res.join(" ")
         else

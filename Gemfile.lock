@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    docker-cli (0.3.3)
+    docker-cli (0.3.4)
       ptools
       teLogger
       toolrack

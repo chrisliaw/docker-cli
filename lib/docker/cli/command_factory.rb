@@ -243,6 +243,8 @@ module Docker
           po = [po] if not po.is_a?(Array)
           res = []
           po.each do |e|
+            # 1st is port on host
+            # 2nd is port inside container
             res << "-p #{e.keys.first}:#{e.values.first}"
           end
           res.join(" ")

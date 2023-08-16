@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    docker-cli (0.3.4)
+    docker-cli (0.4.0)
       colorize
       ptools
       teLogger
@@ -11,31 +11,20 @@ PATH
 
 GIT
   remote: toolrack
-  revision: 924ee3037e6f2fe3d003fab94af6058c5e304889
+  revision: f947895073961ec3bb26c7dd415c426203a6ab39
   branch: master
   specs:
-    toolrack (0.23.1)
+    toolrack (0.23.2)
 
 GEM
   remote: https://rubygems.org/
   specs:
     colorize (0.8.1)
-    devops_assist (0.3.11)
-      git_cli
-      git_cli_prompt (~> 0.3.3)
-      gvcs
-      teLogger
-      toolrack
-      tty-prompt
     diff-lcs (1.5.0)
     git_cli (0.12.0)
       ptools (~> 1.4.0)
       teLogger
       toolrack
-    git_cli_prompt (0.3.4)
-      teLogger
-      toolrack
-      tty-prompt
     gvcs (0.1.2)
     pastel (0.8.0)
       tty-color (~> 0.5)
@@ -82,7 +71,6 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  devops_assist
   docker-cli!
   rake (~> 13.0)
   release-gem

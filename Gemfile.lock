@@ -2,11 +2,19 @@ PATH
   remote: .
   specs:
     docker-cli (0.3.4)
+      colorize
       ptools
       teLogger
       toolrack
       tty-command
       tty-prompt
+
+GIT
+  remote: toolrack
+  revision: 924ee3037e6f2fe3d003fab94af6058c5e304889
+  branch: master
+  specs:
+    toolrack (0.23.1)
 
 GEM
   remote: https://rubygems.org/
@@ -55,7 +63,6 @@ GEM
       rspec-support (~> 3.12.0)
     rspec-support (3.12.0)
     teLogger (0.2.2)
-    toolrack (0.22.1)
     tty-color (0.6.0)
     tty-command (0.10.1)
       pastel (~> 0.8)
@@ -80,6 +87,7 @@ DEPENDENCIES
   rake (~> 13.0)
   release-gem
   rspec (~> 3.0)
+  toolrack!
 
 BUNDLED WITH
-   2.2.28
+   2.4.18

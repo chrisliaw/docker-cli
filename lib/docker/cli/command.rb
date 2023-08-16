@@ -12,6 +12,8 @@ module Docker
     class Command
       include TR::CondUtils
 
+      class CommandError < StandardError; end
+
       attr_accessor :command_buffer
       def initialize(cmd, required_interaction = false)
         @command_buffer = cmd

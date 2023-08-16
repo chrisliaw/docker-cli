@@ -1,12 +1,15 @@
 
+require 'erb'
+
 require_relative 'command'
+require_relative 'user_info'
 
 module Docker
   module Cli
     class CommandFactory
       include TR::CondUtils
 
-      def build_image(name = "", opts = {  })
+      def build_image(name = "", opts = {  }, &block)
 
         opts = {  } if opts.nil?
         cmd = []
@@ -106,6 +109,10 @@ module Docker
         Command.new(cmd)
       end
 
+      # 
+      # Create container from image directly
+      # e.g. > docker run -it <image> "/bin/bash"
+      #
       def create_container_from_image(image, opts = { })
         opts = {} if opts.nil?
         cmd = []
@@ -113,12 +120,20 @@ module Docker
         cmd << "run"
         cmd << "-i" if opts[:interactive] == true
         cmd << "-t" if opts[:tty] == true
+        cmd << "-d" if opts[:detached] == true
+        cmd << "--rm" if opts[:del] == true
         if not (opts[:container_name].nil? or opts[:container_name].empty?)
-          cmd << "--name #{opts[:container_name]}"
+          cmd << "--name \"#{opts[:container_name]}\""
         end
 
         cmd << process_mount(opts)
         cmd << process_port(opts)
+
+        if opts[:match_user] == true
+          ui = UserInfo.user_info
+          gi = UserInfo.group_info
+          cmd << "-u #{ui[:uid]}:#{gi[:gid]}"
+        end
 
         cmd << image
 
@@ -128,7 +143,7 @@ module Docker
 
         interactive = false
         interactive = true if opts[:interactive] or opts[:tty]
-        
+
         logger.debug "Run Container from Image : #{cmd.join(" ")}"
         Command.new(cmd, (interactive ? true : false))
       end # run_container_from_image
@@ -220,17 +235,17 @@ module Docker
 
 
       private
-      # expecting :mounts => [{ "/dir/local" => "/dir/inside/docker" }]
+      # expecting :mounts => { "/dir/local" => "/dir/inside/docker" }
       def process_mount(opts)
-        if not (opts[:mount].nil? or opts[:mount].empty?)
-          m = opts[:mount]
-          m = [m] if not m.is_a?(Array)
-          res = []
-          m.each do |mm|
-            host = mm.keys.first
-            res << "-v #{host}:#{mm[host]}"
+        if not_empty?(opts[:mounts]) #not (opts[:mounts].nil? or opts[:mounts].empty?)
+          m = opts[:mounts]
+          if m.is_a?(Hash)
+            res = []
+            m.each do |local, docker|
+              res << "-v #{local}:#{docker}"
+            end
+            res.join(" ")
           end
-          res.join(" ")
         else
           ""
         end
@@ -238,15 +253,20 @@ module Docker
       end # process_mount
 
       def process_port(opts)
-         if not (opts[:ports].nil? or opts[:ports].empty?)
+         if not_empty?(opts[:ports]) #not (opts[:ports].nil? or opts[:ports].empty?)
           po = opts[:ports]
-          po = [po] if not po.is_a?(Array)
           res = []
-          po.each do |e|
-            # 1st is port on host
-            # 2nd is port inside container
-            res << "-p #{e.keys.first}:#{e.values.first}"
+          if po.is_a?(Hash)
+            po.each do |host, docker|
+              res << "-p #{host}:#{docker}"
+            end
           end
+          #po = [po] if not po.is_a?(Array)
+          #po.each do |e|
+          #  # 1st is port on host
+          #  # 2nd is port inside container
+          #  res << "-p #{e.keys.first}:#{e.values.first}"
+          #end
           res.join(" ")
         else
           ""
@@ -255,15 +275,17 @@ module Docker
       end
 
       def logger
-        if @logger.nil?
-          @logger = TeLogger::Tlogger.new
-          @logger.tag = :docker_cmd
-        end
-        @logger
+        Cli.logger(:cmdFact)
       end
 
-      def parse_container_list(out, &block)
-         
+      def build_add_user_script
+        path = File.join(File.dirname(__FILE__),"..","..","..","scripts","create_user.sh.erb")
+        if File.exist?(path)
+          ui = UserInfo.user_info
+          gi = UserInfo.group_info
+
+          ERB.new(File.read(path)).result_with_hash({ user_group_id: gi[:gid], user_group_name: gi[:group_name], user_id: ui[:uid], user_login: ui[:login] })
+        end
       end
 
     end

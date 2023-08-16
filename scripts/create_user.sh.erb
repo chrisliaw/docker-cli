@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# This is mostly a test. May not work across different variant of linux
+
+groupadd -f -g <%= user_group_id %>  <%= user_group_name %> && useradd -u <%= user_id %> -g <%= user_group_id %> -m <%= user_login %> && usermod -aG sudo <%= user_login %> && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+tail -f /dev/null
+#while true; do sleep 1000; done
+#exec /bin/bash
+

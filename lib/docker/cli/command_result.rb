@@ -19,6 +19,10 @@ module Docker
         is_empty?(@out)
       end
 
+      def is_err_stream_empty?
+        is_empty?(@err)
+      end
+
       def out_stream
         @out.join("\n") 
       end
@@ -35,6 +39,18 @@ module Docker
         end
       end
 
+      def success?
+        not failed?
+      end
+      alias_method :successful?, :success?
+
+      def each_line(&block)
+        out_stream.each_line(&block)
+      end
+
+      def lines
+        out_stream.lines
+      end
     end
 
   end

@@ -36,6 +36,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'ptools'
 
   spec.add_dependency 'tty-command'
+  spec.add_dependency 'colorize'
   spec.add_dependency 'tty-prompt'
 
   spec.add_development_dependency 'devops_assist'

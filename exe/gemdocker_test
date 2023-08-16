@@ -1,0 +1,40 @@
+#!/usr/bin/env ruby
+
+require 'securerandom'
+require_relative '../lib/docker/cli'
+
+include TR::CondUtils
+
+
+if ARGV.length > 0
+  # 
+  # Should spin off jruby:9.4.2.0-jdk and land on console
+  # > gemdocker jruby:9.4.2.0-jdk
+  # 
+  dimage = ARGV.first
+  cmd = ARGV[1] || "/bin/bash"
+
+  contName = SecureRandom.hex(8)
+
+  mountLocal = Dir.getwd
+  mountDocker = "/opt/#{File.basename(Dir.getwd)}"
+  # user & group created but cannot switch to the user
+  # User creation and login cannot be on the same session
+  #Docker::Cli::DockerContainer.prep_container(dimage, mount_local: mountLocal, mount_docker: mountDocker, container_name: contName,  mount: { mountLocal => mountDocker })
+
+  #cont = Docker::Cli::DockerContainer.new(contName)
+  #cont.start if not cont.is_running?
+  #cont.run_command(cmd, interactive: true, tty: true)
+  #Docker::Cli::DockerContainer.create_container(dimage, interactive: true, tty: true, command: cmd, container_name: contName, mount: { mountLocal => mountDocker }, match_user: true)
+
+  # This approach has user match with local user but no name on the docker
+  # workable not nice only
+  Docker::Cli::DockerContainer.create_container(dimage, interactive: true, tty: true, command: cmd, mount: { mountLocal => mountDocker }, match_user: true)
+
+else
+  # interactive
+  puts "Interactive coming soon..."
+end
+
+
+

@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+
+require 'tty/prompt'
+require 'colorize'
+
+require_relative '../lib/docker/cli'
+
+pmt = TTY::Prompt.new
+# dc-update docker-compose.yml.tmp docker-compose.yml
+begin
+  STDOUT.puts "\n Docker Cli version #{Docker::Cli::VERSION}".green
+  Docker::Cli::DockerComposer.new.parse_argv(ARGV) do |key, *val|
+    case key
+    when :prompt_docker_mount_root
+      pmt.ask(" Please provide the root to mount inside docker : ", required: true, default: '/opt')
+    end
+  end
+rescue TTY::Reader::InputInterrupt
+rescue ArgsParser::ArgParserException => ex
+  STDERR.puts ex.message.red
+end
+
+
+

@@ -82,7 +82,12 @@ module Docker
         cmd << "ps"
         cmd << "-q"
         cmd << "-f"
-        cmd << "name=\"#{name}\""
+        
+        if opts[:exact_name] == true
+          cmd << "name=\"^/#{name}$\""
+        else
+          cmd << "name=\"#{name}\""
+        end
 
         logger.debug "Find container: #{cmd.join(" ")}"
 
@@ -103,7 +108,13 @@ module Docker
         # From little testing seems the command by default already support regex formatting
         # So can use the regex marker to get exact match
         # e.g. if want exact match, pass in ^#{name}\z
-        cmd << "name=\"#{name}\""
+        #cmd << "name=\"#{name}\""
+
+        if opts[:exact_name] == true
+          cmd << "name=\"^/#{name}$\""
+        else
+          cmd << "name=\"#{name}\""
+        end
 
         logger.debug "Find from all container: #{cmd.join(" ")}"
         Command.new(cmd)

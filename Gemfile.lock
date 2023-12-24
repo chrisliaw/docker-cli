@@ -5,9 +5,15 @@ PATH
       colorize
       ptools
       teLogger
-      toolrack (= 0.24.1)
       tty-command
       tty-prompt
+
+GIT
+  remote: toolrack
+  revision: 3db86b98df02dd286dbe8421c14bcd36a6483bf5
+  branch: master
+  specs:
+    toolrack (0.24.1)
 
 GEM
   remote: https://rubygems.org/
@@ -44,7 +50,6 @@ GEM
       rspec-support (~> 3.12.0)
     rspec-support (3.12.1)
     teLogger (0.2.2)
-    toolrack (0.24.1)
     tty-color (0.6.0)
     tty-command (0.10.1)
       pastel (~> 0.8)
@@ -68,6 +73,7 @@ DEPENDENCIES
   rake (~> 13.0)
   release-gem
   rspec (~> 3.0)
+  toolrack!
 
 BUNDLED WITH
    2.5.1

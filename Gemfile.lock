@@ -1,42 +1,35 @@
 PATH
   remote: .
   specs:
-    docker-cli (0.4.0)
+    docker-cli (0.5.0)
       colorize
       ptools
       teLogger
+      toolrack (= 0.24.1)
       tty-command
       tty-prompt
-
-GIT
-  remote: toolrack
-  revision: f947895073961ec3bb26c7dd415c426203a6ab39
-  branch: master
-  specs:
-    toolrack (0.23.2)
 
 GEM
   remote: https://rubygems.org/
   specs:
     colorize (1.1.0)
     diff-lcs (1.5.0)
-    git_cli (0.12.0)
+    git_cli (0.13.9)
       ptools (~> 1.4.0)
-      teLogger
-      toolrack
-    gvcs (0.1.2)
+      teLogger (> 0.2)
+      toolrack (> 0.23)
     pastel (0.8.0)
       tty-color (~> 0.5)
     ptools (1.4.3)
-    rake (13.0.6)
-    release-gem (0.1.25)
-      colorize
-      git_cli
-      gvcs
-      teLogger
-      toolrack
-      tty-command
-      tty-prompt
+    rake (13.1.0)
+    release-gem (0.3.3)
+      colorize (~> 1.1)
+      git_cli (~> 0.13)
+      pastel (~> 0.8)
+      teLogger (~> 0.2)
+      toolrack (~> 0.23)
+      tty-command (~> 0.10)
+      tty-prompt (~> 0.23)
     rspec (3.12.0)
       rspec-core (~> 3.12.0)
       rspec-expectations (~> 3.12.0)
@@ -51,6 +44,7 @@ GEM
       rspec-support (~> 3.12.0)
     rspec-support (3.12.1)
     teLogger (0.2.2)
+    toolrack (0.24.1)
     tty-color (0.6.0)
     tty-command (0.10.1)
       pastel (~> 0.8)
@@ -62,7 +56,7 @@ GEM
       tty-cursor (~> 0.7)
       tty-screen (~> 0.8)
       wisper (~> 2.0)
-    tty-screen (0.8.1)
+    tty-screen (0.8.2)
     wisper (2.0.1)
 
 PLATFORMS
@@ -74,7 +68,6 @@ DEPENDENCIES
   rake (~> 13.0)
   release-gem
   rspec (~> 3.0)
-  toolrack!
 
 BUNDLED WITH
-   2.4.18
+   2.5.1

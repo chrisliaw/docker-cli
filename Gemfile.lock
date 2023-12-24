@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    docker-cli (0.5.0)
+    docker-cli (0.5.1)
       colorize
       ptools
       teLogger

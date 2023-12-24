@@ -40,9 +40,9 @@ module Docker
         cmd << "images"
         cmd << "-q"
         if not_empty?(tag)
-          cmd << "#{name}:#{tag}"
+          cmd << "\"#{name}:#{tag}\""
         else
-          cmd << name
+          cmd << "\"#{name}\""
         end
 
         logger.debug "Find image: #{cmd.join(" ")}"

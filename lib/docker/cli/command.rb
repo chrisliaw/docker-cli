@@ -11,6 +11,7 @@ module Docker
   module Cli
     class Command
       include TR::CondUtils
+      include TR::TerminalUtils
 
       class CommandError < StandardError; end
 
@@ -40,37 +41,40 @@ module Docker
           end
 
           if terminal != :quit
-            case terminal
-            when "terminator"
-              `#{terminal} -x "#{@command_buffer.join(" ")}"`
-            when "gnome-terminal"
-              `#{terminal} -- bash -c "#{@command_buffer.join(" ")}; exec bash"`
-            when "iTerm2"
-              `osascript -e \
-               'tell application "iTerm"
-               activate
 
-               create window with default profile
-               delay 0.5
+            tu_new_terminal(terminal, @command_buffer)
 
-               set currentWindow to current window
+            #case terminal
+            #when "terminator"
+            #  `#{terminal} -x "#{@command_buffer.join(" ")}"`
+            #when "gnome-terminal"
+            #  `#{terminal} -- bash -c "#{@command_buffer.join(" ")}; exec bash"`
+            #when "iTerm2"
+            #  `osascript -e \
+            #   'tell application "iTerm"
+            #   activate
 
-               tell current session of currentWindow
-               write text "#{@command_buffer.join(" ")}"
-               end tell
+            #   create window with default profile
+            #   delay 0.5
 
-               end tell'
-              `
-            when "Terminal" 
-              `osascript -e \
-               'tell application "Terminal"
-               activate
-               do script "#{@command_buffer.join(" ")}"
-               end tell'
-              `
-            else
-              raise Error, "Unfinished supporting terminal : #{terminal}"
-            end
+            #   set currentWindow to current window
+
+            #   tell current session of currentWindow
+            #   write text "#{@command_buffer.join(" ")}"
+            #   end tell
+
+            #   end tell'
+            #  `
+            #when "Terminal" 
+            #  `osascript -e \
+            #   'tell application "Terminal"
+            #   activate
+            #   do script "#{@command_buffer.join(" ")}"
+            #   end tell'
+            #  `
+            #else
+            #  raise Error, "Unfinished supporting terminal : #{terminal}"
+            #end
 
             pmt.puts "\n Prompt running inside the Docker shall be opened in a new window\n\n"
           end

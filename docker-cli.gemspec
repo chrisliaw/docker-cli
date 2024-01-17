@@ -30,14 +30,14 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  #spec.add_dependency 'toolrack'
-  spec.add_dependency 'teLogger'
+  spec.add_dependency 'toolrack', "~> 0.24.2"
+  spec.add_dependency 'teLogger', "~> 0.2"
 
-  spec.add_dependency 'ptools'
+  spec.add_dependency 'ptools', "~> 1.4.3"
 
-  spec.add_dependency 'tty-command'
-  spec.add_dependency 'colorize'
-  spec.add_dependency 'tty-prompt'
+  spec.add_dependency 'tty-command', "~> 0.10.1"
+  spec.add_dependency 'colorize', "~> 1.1"
+  spec.add_dependency 'tty-prompt', "~> 0.23"
 
   #spec.add_development_dependency 'devops_assist'
 
@@ -46,5 +46,5 @@ Gem::Specification.new do |spec|
 
   # For more information and examples about making a new gem, checkout our
   # guide at: https://bundler.io/guides/creating_gem.html
-  spec.add_development_dependency 'release-gem'
+  spec.add_development_dependency 'release-gem', "~> 0.3.3"
 end

@@ -150,7 +150,8 @@ module Docker
         cmd << image
 
         if not_empty?(opts[:command])
-          cmd << "\"#{opts[:command]}\""
+          #cmd << "\"#{opts[:command]}\""
+          cmd << opts[:command]
         end
 
         interactive = false

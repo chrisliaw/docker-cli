@@ -44,7 +44,7 @@ GEM
       rspec-support (~> 3.13.0)
     rspec-support (3.13.1)
     teLogger (0.2.2)
-    toolrack (0.24.2)
+    toolrack (0.24.3)
     tty-color (0.6.0)
     tty-command (0.10.1)
       pastel (~> 0.8)

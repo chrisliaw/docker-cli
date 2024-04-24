@@ -134,7 +134,12 @@ module Docker
         cmd << "-d" if opts[:detached] == true
         cmd << "--rm" if opts[:del] == true
         if not (opts[:container_name].nil? or opts[:container_name].empty?)
-          cmd << "--name \"#{opts[:container_name]}\""
+          if TR::RTUtils.on_mac?
+            # double '\' is required when forking new terminal on mac
+            cmd << "--name \\\"#{opts[:container_name]}\\\""
+          else
+            cmd << "--name \"#{opts[:container_name]}\""
+          end
         end
 
         cmd << process_mount(opts)
@@ -213,6 +218,52 @@ module Docker
         cmd << container
 
         logger.debug "Delete Container : #{cmd.join(" ")}"
+        Command.new(cmd)
+      end
+
+
+      def create_network(network_name, opts = { })
+        cmd = []
+        cmd << Cli.docker_exe
+        cmd << "network"
+        cmd << "create"
+        cmd << network_name
+
+        cmd << "--driver=#{opts[:driver]}" if not_empty?(opts[:driver])
+        
+        if not_empty?(opts[:subnet])
+          subnet = opts[:subnet]
+          if subnet.is_a?(Array)
+            cmd += subnet.map { |v| "--subnet=#{v}"}
+          else
+            cmd << "--subnet=#{opts[:subnet]}" 
+          end
+        end
+
+        if not_empty?(opts[:gateway])
+          gateway = opts[:gateway]
+          if gateway.is_a?(Array)
+            cmd += gateway.map { |v| "--gateway=#{v}"}
+          else
+            cmd << "--gateway=#{opts[:gateway]}" 
+          end
+        end
+
+        cmd << "--ip-range=#{opts[:ip_range]}" if not_empty?(opts[:ip_range])
+
+        logger.debug "Create Network : #{cmd.join(" ")}"
+        Command.new(cmd)
+      end
+
+      
+      def remove_network(name)
+        cmd = []
+        cmd << Cli.docker_exe
+        cmd << "network"
+        cmd << "rm"
+        cmd << name
+
+        logger.debug "Remove Network : #{cmd.join(" ")}"
         Command.new(cmd)
       end
 

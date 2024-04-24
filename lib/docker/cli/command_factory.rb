@@ -139,6 +139,7 @@ module Docker
 
         cmd << process_mount(opts)
         cmd << process_port(opts)
+        cmd << process_network(opts)
 
         if opts[:match_user] == true
           ui = UserInfo.user_info
@@ -283,6 +284,14 @@ module Docker
           ""
         end
         
+      end
+
+      def process_network(opts)
+        if not_empty?(opts) and not_empty?(opts[:network])
+          "--network=#{opts[:network]}" 
+        else
+          "" 
+        end
       end
 
       def logger

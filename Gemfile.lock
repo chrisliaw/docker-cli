@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    docker-cli (0.5.1)
+    docker-cli (0.5.2)
       colorize
       ptools
       teLogger
@@ -19,7 +19,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     colorize (1.1.0)
-    diff-lcs (1.5.0)
+    diff-lcs (1.5.1)
     git_cli (0.13.9)
       ptools (~> 1.4.0)
       teLogger (> 0.2)
@@ -27,7 +27,7 @@ GEM
     pastel (0.8.0)
       tty-color (~> 0.5)
     ptools (1.4.3)
-    rake (13.1.0)
+    rake (13.2.1)
     release-gem (0.3.3)
       colorize (~> 1.1)
       git_cli (~> 0.13)
@@ -36,19 +36,19 @@ GEM
       toolrack (~> 0.23)
       tty-command (~> 0.10)
       tty-prompt (~> 0.23)
-    rspec (3.12.0)
-      rspec-core (~> 3.12.0)
-      rspec-expectations (~> 3.12.0)
-      rspec-mocks (~> 3.12.0)
-    rspec-core (3.12.2)
-      rspec-support (~> 3.12.0)
-    rspec-expectations (3.12.3)
+    rspec (3.13.0)
+      rspec-core (~> 3.13.0)
+      rspec-expectations (~> 3.13.0)
+      rspec-mocks (~> 3.13.0)
+    rspec-core (3.13.0)
+      rspec-support (~> 3.13.0)
+    rspec-expectations (3.13.0)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.12.0)
-    rspec-mocks (3.12.6)
+      rspec-support (~> 3.13.0)
+    rspec-mocks (3.13.0)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.12.0)
-    rspec-support (3.12.1)
+      rspec-support (~> 3.13.0)
+    rspec-support (3.13.1)
     teLogger (0.2.2)
     tty-color (0.6.0)
     tty-command (0.10.1)

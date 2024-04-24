@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    docker-cli (0.5.3)
+    docker-cli (0.5.4)
       colorize (~> 1.1)
       ptools (~> 1.4.3)
       teLogger (~> 0.2)
